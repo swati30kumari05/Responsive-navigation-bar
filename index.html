@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Tech Lab – Navbar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    /* background + red border */
+    body {
+      background: #d3d3d3;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      border: 10px solid red;
+      border-top: none;
+      pointer-events: none;
+    }
+
+    /* grey top bar */
+    .top-border {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #777;
+      z-index: 5;
+    }
+
+    /* DESKTOP NAVBAR (row menu) */
+    .nav-desktop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .nav-container {
+      display: flex;
+      gap: 40px;
+    }
+
+    .nav-container a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    /* MOBILE NAVBAR */
+    .nav-mobile {
+      display: none; /* hidden on desktop */
+    }
+
+    /* icons */
+    .icon-btn {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      font-size: 30px;
+      color: #fff;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 40;          /* above everything */
+    }
+
+    /* full-screen overlay menu */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(100%);   /* hidden initially */
+      transition: transform 0.4s ease;
+      z-index: 20;
+    }
+
+    .overlay.show {
+      transform: translateX(0);      /* slide in */
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      z-index: 40;                   /* above overlay */
+    }
+
+    .overlay-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .overlay-menu a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    /* MEDIA QUERIES */
+
+    /* MOBILE: <= 800px */
+    @media (max-width: 800px) {
+      .nav-desktop {
+        display: none;        /* hide row menu */
+      }
+
+      .nav-mobile {
+        display: block;       /* show hamburger + overlay */
+      }
+
+      .top-border {
+        background: transparent;
+      }
+    }
+
+    /* DESKTOP: > 800px */
+    @media (min-width: 801px) {
+      .icon-btn,
+      .overlay,
+      .nav-mobile {
+        display: none;        /* hide mobile UI */
+      }
+
+      .nav-desktop {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top grey bar -->
+  <div class="top-border"></div>
+
+  <!-- DESKTOP NAV -->
+  <header class="nav-desktop">
+    <nav class="nav-container">
+      <a href="#">HOME</a>
+      <a href="#">ABOUT</a>
+      <a href="#">PROJECT</a>
+      <a href="#">TEAM</a>
+      <a href="#">TECHNOLOGIES</a>
+      <a href="#">CONTACT</a>
+    </nav>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <header class="nav-mobile">
+    <!-- hamburger icon -->
+    <button class="icon-btn" id="openMenu">&#9776;</button>
+
+    <!-- sliding overlay -->
+    <div class="overlay" id="mobileMenu">
+      <!-- close icon -->
+      <button class="icon-btn close-btn" id="closeMenu">&times;</button>
+
+      <nav class="overlay-menu">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT</a>
+        <a href="#">PROJECT</a>
+        <a href="#">TEAM</a>
+        <a href="#">TECHNOLOGIES</a>
+        <a href="#">CONTACT</a>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    const openBtn = document.getElementById("openMenu");
+    const closeBtn = document.getElementById("closeMenu");
+    const menu = document.getElementById("mobileMenu");
+
+    openBtn.addEventListener("click", () => {
+      menu.classList.add("show");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      menu.classList.remove("show");
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
